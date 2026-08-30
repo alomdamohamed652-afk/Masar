@@ -1,4 +1,6 @@
 /* MASAR UI polish layer — additive, safe to remove */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+
 :root{
   --masar-green:#087c45;
   --masar-ink:#07100c;
@@ -8,6 +10,7 @@
 }
 html{scroll-padding-top:90px}
 body{
+  font-family:'Tajawal',Tahoma,'Segoe UI',Arial,sans-serif;
   text-rendering:optimizeLegibility;
   -webkit-font-smoothing:antialiased;
 }
