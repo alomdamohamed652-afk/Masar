@@ -21,6 +21,7 @@ function App(){
   const update=(id:string,size:string,d:number)=>setCart(c=>c.map(x=>x.product.id===id&&x.size===size?{...x,qty:Math.max(1,x.qty+d)}:x));
   const remove=(id:string,size:string)=>setCart(c=>c.filter(x=>!(x.product.id===id&&x.size===size)));
   const count=cart.reduce((s,x)=>s+x.qty,0);
+  useEffect(()=>{if(!supabase)return;const channel=supabase.channel("masar-products-live").on("postgres_changes",{event:"*",schema:"public",table:"products"},()=>{supabase.from("products").select("id,name,slug,description,price,stock,sizes,colors,image_url,is_active,collections(name)").eq("is_active",true).order("created_at",{ascending:false}).then(({data})=>{if(data?.length)setProducts(data.map((p:any)=>({...p,image:p.image_url,collection:p.collections?.name||"",sizes:p.sizes||[],colors:p.colors||[]})))})}).subscribe();return()=>{supabase.removeChannel(channel)}} ,[]);
   useEffect(()=>{if(!user||!supabase){setRole(null);return}supabase.rpc("get_my_role").then(({data})=>setRole(data??null))},[user]);
   return <><TopBar/><Header count={count} user={user} role={role}/><Routes>
     <Route path="/" element={<Home products={products}/>}/><Route path="/collections" element={<Collections collections={collections}/>}/><Route path="/collections/:id" element={<Collection collections={collections} products={products}/>}/>
