@@ -1,0 +1,4 @@
+import { Link } from "react-router-dom";
+import { Instagram } from "lucide-react";
+
+export function Footer(){return <footer><div><Link className="logo" to="/">مسار<span>MASAR</span></Link><p>نصنع قطعًا هادئة بهوية واضحة وتفاصيل تستحق.</p><div className="social"><Instagram size={17}/></div></div><div><b>المتجر</b><Link to="/collections">المجموعات</Link><Link to="/faq">الأسئلة الشائعة</Link><Link to="/shipping">الشحن والتوصيل</Link></div><div><b>المساعدة</b><Link to="/returns">الإرجاع والاستبدال</Link><Link to="/contact">اتصل بنا</Link><Link to="/account">حسابي</Link></div><div><b>اشترك في نشرتنا</b><p>عروض وإطلاقات جديدة تصل إلى بريدك.</p><input placeholder="بريدك الإلكتروني"/><button className="btn small">اشتراك</button></div><div className="copyright">© 2026 مسار. جميع الحقوق محفوظة.</div></footer>}
