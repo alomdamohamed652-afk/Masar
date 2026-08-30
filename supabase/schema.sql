@@ -6,6 +6,7 @@ create extension if not exists pgcrypto;
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text,
+  email text,
   phone text,
   role text not null default 'customer' check (role in ('customer','admin','owner')),
   created_at timestamptz not null default now(),
@@ -125,8 +126,8 @@ create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public
 as $$
 begin
-  insert into public.profiles(id, full_name)
-  values (new.id, coalesce(new.raw_user_meta_data->>'full_name',''));
+  insert into public.profiles(id, full_name, email)
+  values (new.id, coalesce(new.raw_user_meta_data->>'full_name',''), new.email);
   return new;
 end;
 $$;
@@ -258,3 +259,10 @@ on conflict (slug) do update set
   collection_id=excluded.collection_id, name=excluded.name, description=excluded.description,
   price=excluded.price, sizes=excluded.sizes, colors=excluded.colors, image_url=excluded.image_url,
   updated_at=now();
+
+
+-- Backfill email for profiles created before the email column was added.
+update public.profiles p
+set email = u.email
+from auth.users u
+where p.id = u.id and (p.email is null or p.email <> u.email);
