@@ -5,6 +5,7 @@ import { supabase } from "./lib/supabase";
 import { collections as fallbackCollections, products as fallbackProducts, type Product } from "./data";
 import { TopBar } from "./components/TopBar";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 import { ProductCard } from "./components/ProductCard";
 
 type CartItem = { product: Product; size: string; qty: number };
@@ -63,6 +64,4 @@ function Info({icon:I,title,text}:{icon:React.ComponentType<{size?:number}>,titl
 function PageHead({kicker,title,text}:{kicker:string,title:string,text:string}){return <section className="page-head"><div><span className="eyebrow">{kicker}</span><h1>{title}</h1><p>{text}</p></div></section>}
 function Empty({title,text}:{title:string,text:string}){return <div className="empty"><ShoppingBag size={28}/><h3>{title}</h3><p>{text}</p></div>}
 function NotFound(){return <main><section className="success section"><h1>الصفحة غير موجودة</h1><Link className="btn" to="/">العودة للرئيسية</Link></section></main>}
-function Footer(){return <footer><div><Link className="logo" to="/">مسار<span>MASAR</span></Link><p>نصنع قطعًا هادئة بهوية واضحة وتفاصيل تستحق.</p><div className="social"><Instagram size={17}/></div></div><div><b>المتجر</b><Link to="/collections">المجموعات</Link><Link to="/faq">الأسئلة الشائعة</Link><Link to="/shipping">الشحن والتوصيل</Link></div><div><b>المساعدة</b><Link to="/returns">الإرجاع والاستبدال</Link><Link to="/contact">اتصل بنا</Link><Link to="/account">حسابي</Link></div><div><b>اشترك في نشرتنا</b><p>عروض وإطلاقات جديدة تصل إلى بريدك.</p><input placeholder="بريدك الإلكتروني"/><button className="btn small">اشتراك</button></div><div className="copyright">© 2026 مسار. جميع الحقوق محفوظة.</div></footer>}
-
 export default App;
