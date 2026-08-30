@@ -249,11 +249,11 @@ values
 on conflict (slug) do update set
   name=excluded.name, description=excluded.description, image_url=excluded.image_url, sort_order=excluded.sort_order, updated_at=now();
 
-insert into public.products (collection_id,name,slug,description,price,stock,sizes,colors,image_url,sort_order,is_active)
+insert into public.products (collection_id,name,slug,description,price,stock,sizes,colors,image_url,is_active)
 values
-  ((select id from public.collections where slug='black'),'هودي مسار الأسود','p1','هودي بقصة نظيفة وخامة ثقيلة مصمم للاستخدام اليومي.',1290,24,array['S','M','L','XL'],array['أسود'],'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85',1,true),
-  ((select id from public.collections where slug='olive'),'بنطال مسار الزيتوني','p2','بنطال عملي بتفاصيل هادئة وقصة مريحة.',990,18,array['S','M','L','XL'],array['زيتوني'],'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85',2,true),
-  ((select id from public.collections where slug='white'),'قميص مسار الأبيض','p3','قميص أبيض بسيط يركز على الخامة والتفاصيل.',890,31,array['S','M','L','XL'],array['أبيض'],'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=85',3,true)
+  ((select id from public.collections where slug='black'),'هودي مسار الأسود','p1','هودي بقصة نظيفة وخامة ثقيلة مصمم للاستخدام اليومي.',1290,24,array['S','M','L','XL'],array['أسود'],'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85',true),
+  ((select id from public.collections where slug='olive'),'بنطال مسار الزيتوني','p2','بنطال عملي بتفاصيل هادئة وقصة مريحة.',990,18,array['S','M','L','XL'],array['زيتوني'],'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85',true),
+  ((select id from public.collections where slug='white'),'قميص مسار الأبيض','p3','قميص أبيض بسيط يركز على الخامة والتفاصيل.',890,31,array['S','M','L','XL'],array['أبيض'],'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=900&q=85',true)
 on conflict (slug) do update set
   collection_id=excluded.collection_id, name=excluded.name, description=excluded.description,
   price=excluded.price, sizes=excluded.sizes, colors=excluded.colors, image_url=excluded.image_url,
