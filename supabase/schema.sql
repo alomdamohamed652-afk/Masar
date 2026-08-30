@@ -239,7 +239,7 @@ end;
 $$;
 
 revoke all on function public.create_order(uuid,text,text,text,text,text,text,jsonb) from public;
-grant execute on function public.create_order(uuid,text,text,text,text,text,text,jsonb) to authenticated;
+grant execute on function public.create_order(uuid,text,text,text,text,text,text,jsonb) to authenticated, anon;
 
 
 -- Initial catalog seed matching the approved storefront reference.
