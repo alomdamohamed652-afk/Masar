@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, NavLink, Navigate, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ChevronDown, Heart, Instagram, Menu, Minus, Plus, Search, ShoppingBag, User, X, ShieldCheck, Truck, RotateCcw, Leaf, Mail, MapPin, Phone, LogOut, Package, Users, Settings, LayoutDashboard, Boxes, UserPlus, Check, CheckCircle2, TrendingUp } from "lucide-react";
 import { supabase } from "./lib/supabase";
