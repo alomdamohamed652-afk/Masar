@@ -141,3 +141,100 @@ for each row execute procedure public.handle_new_user();
 -- set role='owner', updated_at=now()
 -- from auth.users u
 -- where p.id=u.id and u.email='YOUR_EMAIL_HERE';
+
+
+-- Transactional order creation: validates stock, calculates totals, inserts order/items,
+-- and decrements inventory atomically. Shipping is free at 1500 EGP and 60 EGP otherwise.
+create or replace function public.create_order(
+  p_customer_id uuid,
+  p_customer_name text,
+  p_email text,
+  p_phone text,
+  p_city text,
+  p_address text,
+  p_payment_method text,
+  p_items jsonb
+)
+returns public.orders
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_order public.orders;
+  v_item jsonb;
+  v_product public.products;
+  v_qty integer;
+  v_size text;
+  v_subtotal numeric(12,2) := 0;
+  v_shipping numeric(12,2);
+begin
+  if p_customer_id is not null and p_customer_id <> auth.uid() and not public.is_admin() then
+    raise exception 'not authorized';
+  end if;
+
+  if jsonb_array_length(coalesce(p_items,'[]'::jsonb)) = 0 then
+    raise exception 'cart is empty';
+  end if;
+
+  for v_item in select * from jsonb_array_elements(p_items)
+  loop
+    v_qty := greatest(1, (v_item->>'quantity')::integer);
+    v_size := nullif(v_item->>'size','');
+
+    select * into v_product
+    from public.products
+    where id = (v_item->>'product_id')::uuid
+      and is_active = true
+    for update;
+
+    if not found then raise exception 'product not found'; end if;
+    if v_product.stock < v_qty then raise exception 'insufficient stock for %', v_product.name; end if;
+    if v_size is not null and not (v_size = any(v_product.sizes)) then
+      raise exception 'invalid size for %', v_product.name;
+    end if;
+
+    v_subtotal := v_subtotal + (v_product.price * v_qty);
+  end loop;
+
+  v_shipping := case when v_subtotal >= 1500 then 0 else 60 end;
+
+  insert into public.orders (
+    customer_id, customer_name, email, phone, city, address,
+    payment_method, subtotal, shipping_fee, total, gift_note
+  )
+  values (
+    p_customer_id, trim(p_customer_name), nullif(trim(p_email),''),
+    trim(p_phone), trim(p_city), trim(p_address),
+    p_payment_method, v_subtotal, v_shipping, v_subtotal + v_shipping,
+    'هدية مميزة من مسار'
+  )
+  returning * into v_order;
+
+  for v_item in select * from jsonb_array_elements(p_items)
+  loop
+    v_qty := greatest(1, (v_item->>'quantity')::integer);
+    v_size := nullif(v_item->>'size','');
+
+    select * into v_product from public.products
+    where id = (v_item->>'product_id')::uuid for update;
+
+    insert into public.order_items (
+      order_id, product_id, product_name, size, color, quantity, unit_price
+    )
+    values (
+      v_order.id, v_product.id, v_product.name, v_size,
+      nullif(v_item->>'color',''), v_qty, v_product.price
+    );
+
+    update public.products
+    set stock = stock - v_qty, updated_at = now()
+    where id = v_product.id;
+  end loop;
+
+  return v_order;
+end;
+$$;
+
+revoke all on function public.create_order(uuid,text,text,text,text,text,text,jsonb) from public;
+grant execute on function public.create_order(uuid,text,text,text,text,text,text,jsonb) to authenticated;
