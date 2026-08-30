@@ -7,6 +7,7 @@ import { collections as fallbackCollections, products as fallbackProducts, type 
 type CartItem = { product: Product; size: string; qty: number };
 const money = (n:number) => new Intl.NumberFormat("ar-EG",{style:"currency",currency:"EGP",maximumFractionDigits:0}).format(n);
 
+function ProtectedRoute({user,children}:{user:any,children:React.ReactNode}){return user?children:<Navigate to="/login" replace/>}
 function App(){
   const [products,setProducts]=useState<Product[]>(fallbackProducts);
   const [collections,setCollections]=useState<any[]>(fallbackCollections);
