@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, Route, Routes, useLocation, useNavigate, useParams, Navigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, ChevronDown, Heart, Instagram, Menu, Minus, Plus, Search, ShoppingBag, User, X, ShieldCheck, Truck, RotateCcw, Leaf, Mail, MapPin, Phone, LogOut, Package, Users, Settings, LayoutDashboard, Boxes, UserPlus } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown, Heart, Instagram, Menu, Minus, Plus, Search, ShoppingBag, User, X, ShieldCheck, Truck, RotateCcw, Leaf, Mail, MapPin, Phone, LogOut, Package, Users, Settings, LayoutDashboard, Boxes, UserPlus, Check, CheckCircle2, TrendingUp } from "lucide-react";
 import { supabase } from "./lib/supabase";
 import { collections as fallbackCollections, products as fallbackProducts, type Product } from "./data";
 
