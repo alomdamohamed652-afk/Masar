@@ -1,0 +1,129 @@
+/* MASAR UI polish layer — additive, safe to remove */
+:root{
+  --masar-green:#087c45;
+  --masar-ink:#07100c;
+  --masar-lime:#a9bd28;
+  --masar-line:#e6e8e3;
+  --masar-soft:#f7f8f4;
+}
+html{scroll-padding-top:90px}
+body{
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:#dcecb0;color:var(--masar-ink)}
+a,button,input,select,textarea{touch-action:manipulation}
+button:disabled{cursor:not-allowed}
+
+/* Better clickable cards */
+.product-card,.collection-card,.value-grid article,.stat-card{
+  border:1px solid transparent;
+  border-radius:10px;
+}
+.product-card{padding:0 0 2px;overflow:hidden}
+.product-card:focus-visible,.collection-card:focus-visible{
+  box-shadow:0 0 0 3px #a9bd284d;
+}
+.product-card .product-image{border-radius:10px 10px 4px 4px}
+.product-card .product-image img{transition:transform .55s cubic-bezier(.2,.7,.2,1),filter .35s}
+.product-card:hover .product-image img{transform:scale(1.045)}
+.product-card .product-meta{padding:16px 4px 10px}
+.product-meta strong{font-variant-numeric:tabular-nums}
+
+/* Buttons / controls */
+.btn{
+  min-height:46px;
+  padding-inline:22px;
+  border-radius:9px;
+  letter-spacing:-.1px;
+}
+.btn:not(:disabled):hover{transform:translateY(-2px)}
+.btn:not(:disabled):active{transform:translateY(0) scale(.985)}
+input,select,textarea,.governorate-trigger{
+  border-radius:9px!important;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+}
+input:focus,select:focus,textarea:focus{
+  box-shadow:0 0 0 4px #008d4b12!important;
+}
+.sizes button{
+  border-radius:8px!important;
+  min-width:52px;
+}
+.sizes button.selected{box-shadow:0 4px 14px #07100c22}
+
+/* Header */
+.header{box-shadow:0 1px 0 #00000004}
+.logo{letter-spacing:-.4px}
+.header-search{box-shadow:0 2px 12px #00000006}
+.nav a{padding:7px 0}
+
+/* Hero / page heads */
+.hero{isolation:isolate}
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:110px;
+  background:linear-gradient(transparent,#0003);
+  pointer-events:none;
+}
+.hero-copy{position:relative;z-index:1}
+.page-head{position:relative;overflow:hidden}
+.page-head:after{
+  content:"";
+  position:absolute;
+  width:260px;height:260px;
+  border:1px solid #087c4515;
+  border-radius:50%;
+  left:-90px;bottom:-150px;
+}
+
+/* Better forms and auth */
+.auth-card{
+  box-shadow:0 20px 60px #07100c0b;
+}
+.auth-card form label{gap:7px}
+.auth-card input{min-height:48px}
+.notice{border:1px solid #dceadf;line-height:1.8}
+.notice.error{border-color:#edcccc;background:#fff8f8;color:#8d2d2d}
+
+/* Checkout */
+.checkout form,.summary{box-shadow:0 10px 35px #07100c08}
+.payments label{border-radius:10px!important}
+.payments label.chosen{transform:translateY(-1px)}
+
+/* Admin */
+.admin{border-top:1px solid #e9ece7}
+.admin>aside{box-shadow:inset -1px 0 #ffffff0b}
+.admin>aside button{min-height:46px}
+.admin-panel,.stat-card{border-radius:10px}
+.stat-card{box-shadow:0 8px 24px #07100c06}
+.stat-card strong{font-variant-numeric:tabular-nums}
+.admin-row{transition:background .18s,transform .18s}
+.admin-row:hover{background:#f7faf7}
+.admin-product-tools input{border-radius:9px}
+.admin-editor{border-radius:10px!important;background:#fbfcfa}
+
+/* Loading feel without changing JS */
+.product-grid .product-card:nth-child(2){animation-delay:.04s}
+.product-grid .product-card:nth-child(3){animation-delay:.08s}
+.product-grid .product-card:nth-child(4){animation-delay:.12s}
+.product-grid .product-card:nth-child(5){animation-delay:.16s}
+.product-grid .product-card:nth-child(6){animation-delay:.20s}
+
+/* Mobile */
+@media(max-width:700px){
+  .header{backdrop-filter:blur(18px)}
+  .hero:after{height:70px}
+  .product-meta{gap:10px}
+  .product-meta h3{font-size:15px}
+  .catalog-toolbar input,.catalog-toolbar select{height:46px}
+  .auth{padding:22px 14px}
+  .auth-card{padding:28px 20px}
+  .admin-content{padding:18px 14px}
+  .admin-panel{padding:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .product-grid .product-card{animation:none!important}
+}
