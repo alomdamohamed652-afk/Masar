@@ -260,3 +260,33 @@ footer a:hover{color:var(--green);transform:translateX(-2px)}
   .hero-copy,.auth-card-animated,.success{animation:none}
   .product-card:hover,.collection-card:hover,.value-grid article:hover,.btn:hover{transform:none}
 }
+
+
+/* MASAR — NAVIGATION & SELECT FINISH */
+.header-search{display:flex;align-items:center;gap:8px;width:min(250px,22vw);border-bottom:1px solid #dfe3dc;padding:7px 2px}
+.header-search input{border:0;outline:0;background:transparent;width:100%;font-size:12px;color:var(--ink)}
+.header-search:focus-within{border-color:var(--green)}
+.governorate{position:relative;width:100%}
+.governorate-trigger{width:100%;min-height:48px;padding:0 14px;border:1px solid #ddd;border-radius:5px;background:#fff;display:flex;align-items:center;justify-content:space-between;color:#343936;text-align:right}
+.governorate-trigger.open,.governorate-trigger:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(7,140,77,.08)}
+.governorate-menu{position:absolute;z-index:40;top:calc(100% + 7px);right:0;width:100%;min-width:250px;background:#fff;border:1px solid var(--line);border-radius:7px;padding:8px;box-shadow:0 18px 45px rgba(7,16,12,.14);animation:dropIn .16s ease both}
+@keyframes dropIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.governorate-search{display:flex;align-items:center;gap:8px;border:1px solid #e0e3de;border-radius:5px;padding:0 10px;margin-bottom:7px}
+.governorate-search:focus-within{border-color:var(--green)}
+.governorate-search input{width:100%;border:0;outline:0;padding:10px 0;font-size:12px}
+.governorate-options{max-height:240px;overflow:auto}
+.governorate-options button{width:100%;border:0;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px 11px;border-radius:4px;font-size:12px;text-align:right}
+.governorate-options button:hover,.governorate-options button.selected{background:#eef8f1;color:var(--green);font-weight:700}
+.governorate-options p{margin:12px;text-align:center;color:var(--muted);font-size:12px}
+.nav.open{display:flex}
+@media(max-width:900px){.header-search{width:190px}.nav{gap:18px}}
+@media(max-width:700px){
+ .header-search{display:none}
+ .mobile-menu{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid #ddd;background:#fff}
+ .nav.open{display:flex;position:absolute;top:68px;right:12px;left:12px;padding:12px;background:rgba(255,255,255,.98);border:1px solid var(--line);border-radius:7px;box-shadow:var(--shadow-md);flex-direction:column;align-items:stretch;gap:3px;animation:dropIn .18s ease both}
+ .nav.open a{padding:12px 14px;border-radius:4px}
+ .nav.open a:hover,.nav.open a.active{background:#f1f7f3}
+ .nav.open a:after{display:none}
+ .governorate-menu{position:fixed;right:14px;left:14px;width:auto;top:auto;margin-top:7px}
+ .governorate-options{max-height:45vh}
+}
