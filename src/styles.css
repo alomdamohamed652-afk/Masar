@@ -393,3 +393,5 @@ body{overflow-x:hidden}
 @keyframes masarFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .hero-copy{animation:masarFade .7s ease both}.section-head{animation:masarFade .5s ease both}
 @media(prefers-reduced-motion:reduce){.hero-copy,.section-head{animation:none}.product-card:hover,.value-grid article:hover,.stat-card:hover{transform:none}}
+
+.password-field{position:relative;display:flex;align-items:center}.password-field input{width:100%;padding-left:70px!important}.password-toggle{position:absolute;left:8px;border:0;background:#f4f6f2;color:#176f46;border-radius:6px;padding:6px 9px;font-size:11px;font-weight:700}.password-toggle:hover{background:#e8eee8}.auth-card-animated{animation:masarFade .5s ease both}.auth-card label{display:grid;gap:7px;font-size:13px;font-weight:700}.auth-card .btn:disabled{opacity:.65;cursor:wait;transform:none}
