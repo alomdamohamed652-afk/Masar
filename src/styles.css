@@ -39,3 +39,49 @@ body{font-size:15px}button,.btn{min-height:44px}.nav a{font-weight:600}.page-hea
 .btn,.purchase-btn,.governorate-trigger,.payments label,.sizes button{will-change:transform}.btn{border-radius:8px}.product-card:focus-visible,.collection-card:focus-visible,.btn:focus-visible,.governorate-trigger:focus-visible,.sizes button:focus-visible{outline:3px solid #a9bd28;outline-offset:3px}
 @keyframes masarMenu{from{opacity:0;transform:translateY(-5px) scale(.99)}to{opacity:1;transform:none}}
 @media(max-width:600px){.governorate-menu{position:fixed;right:14px;left:14px;top:auto;bottom:14px;border-radius:14px;padding:10px;box-shadow:0 24px 60px #0003}.governorate-options{max-height:45vh}.governorate-trigger{min-height:46px}}
+
+
+/* MASAR UI POLISH */
+:root{--masar-green:#008d4b;--masar-dark:#07100c;--masar-lime:#b7c92e;--masar-line:#e6e8e3;--masar-muted:#73766f}
+body{overflow-x:hidden}
+.hero-copy,.section-head,.product-card,.collection-card,.value-grid article,.stat-card,.summary,.admin-panel,.auth-card,.contact-form,.checkout form,.account-card{animation:masarRise .65s ease both}
+@keyframes masarRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.btn{box-shadow:0 6px 18px rgba(0,141,75,.14);transition:transform .22s ease,box-shadow .22s ease,background .22s ease}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,141,75,.2)}
+.product-card,.collection-card,.value-grid article{transition:transform .25s ease,box-shadow .25s ease}
+.product-card:hover{transform:translateY(-5px)}
+.value-grid article:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(7,16,12,.07)}
+.collection-card:hover{transform:translateY(-5px)}
+.form-grid input,.auth-card input,.contact-form input,.contact-form textarea,.catalog-toolbar input,.catalog-toolbar select,.admin-search,.admin-product-tools input{transition:border-color .2s,box-shadow .2s}
+.form-grid input:focus,.auth-card input:focus,.contact-form input:focus,.contact-form textarea:focus,.catalog-toolbar input:focus,.catalog-toolbar select:focus,.admin-search:focus,.admin-product-tools input:focus{box-shadow:0 0 0 3px rgba(0,141,75,.1)}
+.catalog-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:28px;padding:14px;border:1px solid var(--masar-line);border-radius:8px;background:#fff}
+.catalog-toolbar input{flex:1;border:1px solid #ddd;border-radius:5px;padding:11px 13px;outline:none}
+.catalog-toolbar select{border:1px solid #ddd;border-radius:5px;padding:11px 13px;background:#fff;outline:none}
+.product-badge{display:inline-flex;margin-top:10px;padding:6px 10px;border-radius:999px;background:#eaf6ee;color:var(--masar-green);font-size:11px;font-weight:800}
+.hero-actions{display:flex;align-items:center;gap:22px;margin-top:28px}
+.hero-link{color:#fff;border-bottom:1px solid rgba(255,255,255,.55);padding-bottom:3px;font-weight:700;font-size:13px}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:28px}
+.section-head h2{margin:4px 0 0;font-size:clamp(27px,3.5vw,40px)}
+.admin-table{overflow:auto;border:1px solid var(--masar-line);border-radius:8px;background:#fff;padding:0 18px}
+.admin-row{min-width:620px}
+.admin-row button{transition:.2s}
+.admin-row button:hover{border-color:var(--masar-green);color:var(--masar-green)}
+@media(max-width:700px){
+ .header{height:70px;padding:0 16px}.nav{top:70px}
+ .hero{min-height:590px;padding:45px 20px}.hero h1{font-size:44px}.hero p{font-size:15px}
+ .section{padding:65px 0;width:min(100% - 28px,1180px)}
+ .section-head{align-items:flex-start;gap:12px;flex-direction:column}
+ .collection-grid,.product-grid{grid-template-columns:1fr}
+ .product-image img{height:440px}.product-photo img{height:450px}
+ .product-info{padding-top:15px}.product-info h1{font-size:35px}
+ .value-grid,.stats{grid-template-columns:1fr}
+ .stats div{border-left:0;border-bottom:1px solid #eee;padding:18px}.stats div:last-child{border-bottom:0}
+ .cta{width:calc(100% - 28px);padding:28px 22px;gap:22px;flex-direction:column;align-items:flex-start}
+ .form-grid{grid-template-columns:1fr}.form-grid label:last-child{grid-column:auto}
+ .catalog-toolbar{align-items:stretch;flex-direction:column}
+ .catalog-toolbar input,.catalog-toolbar select{width:100%}
+ .admin-grid{grid-template-columns:1fr}.admin-content{padding:18px 14px}
+ footer{grid-template-columns:1fr;padding:50px 20px}
+ .hero-actions{align-items:flex-start;flex-direction:column;gap:15px}
+}
