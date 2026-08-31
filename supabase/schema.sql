@@ -267,3 +267,66 @@ update public.profiles p
 set email = u.email
 from auth.users u
 where p.id = u.id and (p.email is null or p.email <> u.email);
+
+
+-- Advanced catalog: product media and per-variant inventory.
+create table if not exists public.product_media (
+  id uuid primary key default gen_random_uuid(),
+  product_id uuid not null references public.products(id) on delete cascade,
+  image_url text not null,
+  alt_text text,
+  sort_order integer not null default 0,
+  color text,
+  is_primary boolean not null default false,
+  created_at timestamptz not null default now()
+);
+create table if not exists public.product_variants (
+  id uuid primary key default gen_random_uuid(),
+  product_id uuid not null references public.products(id) on delete cascade,
+  size text not null,
+  color text not null,
+  stock integer not null default 0 check(stock>=0),
+  sku text unique,
+  image_url text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique(product_id,size,color)
+);
+alter table public.product_media enable row level security;
+alter table public.product_variants enable row level security;
+create policy if not exists "public product media read" on public.product_media for select using (
+  exists(select 1 from public.products p where p.id=product_id and (p.is_active=true or public.is_admin()))
+);
+create policy if not exists "admins manage product media" on public.product_media for all using(public.is_admin()) with check(public.is_admin());
+create policy if not exists "public product variants read" on public.product_variants for select using (
+  exists(select 1 from public.products p where p.id=product_id and (p.is_active=true or public.is_admin()))
+);
+create policy if not exists "admins manage product variants" on public.product_variants for all using(public.is_admin()) with check(public.is_admin());
+
+-- CMS controls for storefront copy, header/footer, banners and policy content.
+create table if not exists public.site_content (
+  key text primary key,
+  value jsonb not null default '{}',
+  updated_at timestamptz not null default now(),
+  updated_by uuid references public.profiles(id) on delete set null
+);
+alter table public.site_content enable row level security;
+create policy if not exists "public read site content" on public.site_content for select using(true);
+create policy if not exists "admins manage site content" on public.site_content for all using(public.is_admin()) with check(public.is_admin());
+
+-- Storage bucket for catalog images. Restrict writes to admins.
+insert into storage.buckets(id,name,public) values ('catalog','catalog',true)
+on conflict(id) do update set public=true;
+create policy if not exists "public catalog images read" on storage.objects for select using(bucket_id='catalog');
+create policy if not exists "admins upload catalog images" on storage.objects for insert with check(bucket_id='catalog' and public.is_admin());
+create policy if not exists "admins update catalog images" on storage.objects for update using(bucket_id='catalog' and public.is_admin()) with check(bucket_id='catalog' and public.is_admin());
+create policy if not exists "admins delete catalog images" on storage.objects for delete using(bucket_id='catalog' and public.is_admin());
+
+insert into public.site_content(key,value) values
+('storefront',jsonb_build_object(
+ 'brand','MASAR','tagline','هوية تُلبس، لا مجرد ملابس',
+ 'support_email','support@masar.com','whatsapp','+20 100 000 0000',
+ 'free_shipping_threshold',1500,
+ 'footer_note','قطع صُممت لتعيش معك، لا لتختفي مع الموضة.'
+))
+on conflict(key) do nothing;
