@@ -351,3 +351,10 @@ footer a:hover{color:var(--green);transform:translateX(-2px)}
 .wishlist-head button{border:1px solid var(--line);background:#fff;border-radius:5px;padding:9px 13px;font:inherit;cursor:pointer;transition:.2s}
 .wishlist-head button:hover{border-color:#e3bcb6;background:#fff7f5}
 @media(max-width:700px){.favorite{width:36px;height:36px;top:9px;right:9px}.wishlist-head{margin-bottom:16px}}
+
+
+/* MASAR — conversion-focused storefront */
+.product-image{position:relative;overflow:hidden}.product-image img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}.product-card:hover .product-image img{transform:scale(1.035)}
+.recently{border-top:1px solid var(--line)}.recently .section-head{margin-bottom:22px}
+.stock-badge{font-weight:800}.stock-out{opacity:.65}.product-info .purchase-btn[disabled]{cursor:not-allowed}
+@media(max-width:700px){.recently{padding-top:45px}.recently .product-image img{height:360px}}
