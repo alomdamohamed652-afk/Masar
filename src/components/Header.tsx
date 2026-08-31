@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 
 export function Header({count,user,role}:{count:number,user:any,role:string|null}){
   const [open,setOpen]=useState(false);
@@ -21,7 +21,7 @@ export function Header({count,user,role}:{count:number,user:any,role:string|null
     </form>
     <div className="actions">
       <Link to="/account" aria-label={user?"حسابي":"تسجيل الدخول"} onClick={close}><User size={19}/></Link>
-      <Link to="/cart" className="cart-icon" aria-label={`السلة، ${count} منتجات`} onClick={close}><ShoppingBag size={20}/>{count>0&&<b>{count}</b>}</Link>
+      <Link to="/wishlist" className="wishlist-icon" aria-label="المفضلة" onClick={close}><Heart size={19}/></Link><Link to="/cart" className="cart-icon" aria-label={`السلة، ${count} منتجات`} onClick={close}><ShoppingBag size={20}/>{count>0&&<b>{count}</b>}</Link>
       <button type="button" className="mobile-menu" onClick={()=>setOpen(v=>!v)} aria-label={open?"إغلاق القائمة":"فتح القائمة"} aria-expanded={open}>{open?<X/>:<Menu/>}</button>
     </div>
   </header>
