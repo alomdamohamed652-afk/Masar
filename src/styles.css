@@ -364,3 +364,5 @@ footer a:hover{color:var(--green);transform:translateX(-2px)}
 .shipping-progress>div:first-child{display:flex;justify-content:space-between;gap:10px;font-size:11px;margin-bottom:10px}.shipping-progress b{font-size:11px;color:var(--green)}
 .progress-track{height:5px!important;background:#e4e8e4;border-radius:10px;overflow:hidden}.progress-track i{display:block;height:100%;background:var(--green);border-radius:10px;transition:width .45s ease}
 .color-options button{min-width:80px}
+
+.qty button:disabled{opacity:.35;cursor:not-allowed}.qty button:not(:disabled):hover{background:#eef6f1;color:var(--green)}
