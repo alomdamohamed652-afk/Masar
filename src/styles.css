@@ -373,3 +373,23 @@ footer a:hover{color:var(--green);transform:translateX(-2px)}
 
 
 .admin-image-preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.admin-image-preview img{width:70px;height:80px;object-fit:cover;border-radius:4px;border:1px solid var(--line)}
+
+/* MASAR UI POLISH v3 */
+:root{--focus:rgba(7,140,77,.12)}
+body{overflow-x:hidden}
+.btn{border-radius:8px;min-height:46px;box-shadow:0 7px 20px rgba(7,140,77,.12)}
+.btn:hover{box-shadow:0 11px 28px rgba(7,140,77,.18)}
+.product-card{transition:transform .25s ease,box-shadow .25s ease}
+.product-card:hover{transform:translateY(-5px)}
+.product-image{border-radius:10px;box-shadow:0 8px 24px rgba(9,20,14,.06)}
+.product-image img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.product-card:hover .product-image img{transform:scale(1.035)}
+.value-grid article,.stat-card,.summary,.admin-panel,.account-card{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.value-grid article:hover,.stat-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(9,20,14,.08)}
+.header-search:focus-within{box-shadow:0 0 0 4px var(--focus)}
+.form-grid input:focus,.form-grid select:focus,.auth-card input:focus,.contact-form input:focus,.contact-form textarea:focus{box-shadow:0 0 0 4px var(--focus);border-color:var(--green)}
+.nav a{font-weight:700}
+.nav a:after{transition:width .25s ease}
+@keyframes masarFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hero-copy{animation:masarFade .7s ease both}.section-head{animation:masarFade .5s ease both}
+@media(prefers-reduced-motion:reduce){.hero-copy,.section-head{animation:none}.product-card:hover,.value-grid article:hover,.stat-card:hover{transform:none}}
