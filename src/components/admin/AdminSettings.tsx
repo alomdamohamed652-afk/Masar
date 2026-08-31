@@ -1,0 +1,4 @@
+import { useEffect, useState } from "react";
+import { supabase } from "../../lib/supabase";
+const Empty=({title,text}:{title:string;text:string})=><div className="empty-state"><h3>{title}</h3><p>{text}</p></div>;
+export function AdminSettings(){return <div className="admin-panel"><h2>إعدادات المتجر</h2><div className="form-grid"><label>اسم المتجر<input value="مسار | MASAR" readOnly/></label><label>البريد<input value="support@masar.com" readOnly/></label><label>الشحن المجاني من<input value="1500" readOnly/></label><label>هدية الطلب<input value="هدية مميزة من مسار" readOnly/></label></div></div>}
